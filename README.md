@@ -104,7 +104,7 @@ const chadPersonalities = {
 
 1. **저장소 클론**
 ```bash
-git clone https://github.com/your-username/giga-pt.git
+git clone https://github.com/damnboy1310/giga-pt.git
 cd giga-pt
 ```
 
@@ -207,7 +207,7 @@ npm run lint
 
 ## 📞 연락처
 
-- **프로젝트 링크**: [https://github.com/your-username/giga-pt](https://github.com/your-username/giga-pt)
+- **프로젝트 링크**: [https://github.com/damnboy1310/giga-pt](https://github.com/damnboy1310/giga-pt)
 - **이메일**: your-email@example.com
 
 ## 🙏 감사의 말
