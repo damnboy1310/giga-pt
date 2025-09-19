@@ -1,101 +1,164 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import { Sidebar } from "@/components/sidebar"
+import { MessageSquare, Copy, ThumbsUp, ThumbsDown, RotateCcw } from "lucide-react"
+
+const chatHistory = [
+  {
+    section: "TODAY",
+    chats: [
+      "New chat",
+      "Verification email issue",
+      "Logo concept for project",
+      "Write a short riddle with the ans...",
+      "Explain quantum entanglement...",
+    ],
+  },
+  {
+    section: "YESTERDAY",
+    chats: [
+      "Verification email issue",
+      "Logo concept for project",
+      "Write a short riddle with the ans...",
+      "Explain quantum entanglement...",
+    ],
+  },
+]
+
+export default function ChatInterface() {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [selectedChat, setSelectedChat] = useState("help me with setting up TailwindCSS")
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="flex h-screen bg-background">
+      {/* Sidebar */}
+      <Sidebar
+        collapsed={sidebarCollapsed}
+        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+        selectedChat={selectedChat}
+        onChatSelect={setSelectedChat}
+      />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Chat Content */}
+        <ScrollArea className="flex-1 p-6">
+          <div className="max-w-3xl mx-auto space-y-6">
+            {/* User Message */}
+            <div className="flex gap-4">
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-sm text-primary-foreground font-medium">U</span>
+              </div>
+              <div className="flex-1">
+                <p className="text-foreground">help me with setting up TailwindCSS</p>
+              </div>
+            </div>
+
+            {/* AI Response */}
+            <div className="flex gap-4">
+              <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center flex-shrink-0">
+                <MessageSquare className="w-4 h-4 text-secondary-foreground" />
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                  <span className="text-sm text-muted-foreground">
+                    Setting up TailwindCSS for theme support involves configuring CSS variables, TailwindCSS theme
+                    extension, and optionally dark mode. Here's a step-by-step guide:
+                  </span>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">1. Install TailwindCSS (if not installed)</h3>
+                    <div className="bg-muted rounded-lg p-4 relative">
+                      <Button variant="ghost" size="sm" className="absolute top-2 right-2">
+                        <Copy className="w-4 h-4" />
+                        Copy
+                      </Button>
+                      <code className="text-sm font-mono text-foreground">
+                        npm install -D tailwindcss postcss autoprefixer npx tailwindcss init -p
+                      </code>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">2. Configure tailwind.config.js for Theme Support</h3>
+                    <p className="text-muted-foreground mb-3">
+                      Tailwind allows extending themes using the extend property. You can define custom themes with CSS
+                      variables.
+                    </p>
+
+                    <div className="mb-3">
+                      <strong>Example: Multiple Themes (Light/Dark Mode)</strong>
+                    </div>
+
+                    <div className="bg-muted rounded-lg p-4 relative">
+                      <Button variant="ghost" size="sm" className="absolute top-2 right-2">
+                        <Copy className="w-4 h-4" />
+                        Copy
+                      </Button>
+                      <pre className="text-sm font-mono text-foreground overflow-x-auto">
+                        {`module.exports = {
+  darkMode: "class", // Enables dark mode using class
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: "var(--primary)", // Uses CSS variables for theming
+        secondary: "var(--secondary)",
+        background: "var(--background)",
+      },
+    },
+  },
+}`}
+                      </pre>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex items-center gap-2 pt-4">
+                  <Button variant="ghost" size="sm">
+                    <ThumbsUp className="w-4 h-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm">
+                    <ThumbsDown className="w-4 h-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm">
+                    <RotateCcw className="w-4 h-4" />
+                  </Button>
+                  <Separator orientation="vertical" className="h-4" />
+                  <span className="text-xs text-muted-foreground">03 min</span>
+                  <Button variant="ghost" size="sm">
+                    <Copy className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ScrollArea>
+
+        {/* Input Area */}
+        <div className="border-t border-border p-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="relative">
+              <Input placeholder="Message ChatGPT..." className="pr-12 py-3 text-base" />
+              <Button size="sm" className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                <span className="sr-only">Send</span>↑
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground text-center mt-2">AI-generated, for reference only</p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
-  );
+  )
 }
